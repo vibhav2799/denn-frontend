@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import Login from './containers/login/login.js'
 import SignUp from './containers/signup/signup.js'
+import YouTubePlayer from './containers/youtube/youtubeplayer'
 import './node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // ReactDOM.render(<Login />, document.getElementById('app'))
@@ -16,6 +17,7 @@ render(
         <div>
             <Route exact path="/" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
+            <Route exact path="/youtube" component={YouTubePlayer}/>
         </div>
     </Router>,
     document.getElementById('app')
