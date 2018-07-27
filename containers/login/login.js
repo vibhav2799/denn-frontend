@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Router, Route, Link, RouteHandler} from 'react-router';
 import './style.css';
 
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +29,7 @@ class Login extends Component {
             .then(json =>{
                console.log(json);
                this.setState({ data: json.data })
+
             });
     }
 

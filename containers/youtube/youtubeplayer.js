@@ -2,28 +2,40 @@ import React, {Component} from 'react';
 import {Router, Route, Link, RouteHandler} from 'react-router';
 import YouTube from 'react-youtube';
 
-class YouTubePlayer extends Component {
+export function check() {
+  fetch('http://127.0.0.1:5000/watch', {
+    method : 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' : '*'
+      },
+      body: JSON.stringify({
+        id: 15,
+        friend_id: 16
+    })
+  }).then(response => response.json())
+  .then(json =>{
+    console.log(json)
+    if (json['state'] == 'pause') {
 
-    check() {
-      console.log('called')
-      fetch('http://127.0.0.1:5000/watch', {
-        method : 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin' : '*'
-          },
-          body: JSON.stringify({
-            id: 15,
-            friend_id: 16
-        })
-      }).then(response => response.json())
-      .then(json =>{
-        console.log(json);
-    });
+    } else if (json['state'] == 'play') {
     }
+    check();
+});
+}
+
+class YouTubePlayer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        video : ''
+    }
+}  
+
 
     render() {
+      console.log('t');
         const opts = {
           height: '390',
           width: '640',
@@ -36,7 +48,7 @@ class YouTubePlayer extends Component {
           <YouTube
             videoId="2g811Eo7K8U"
             opts={opts}
-            onReady={this.check}
+            onReady={check()}
             onStateChange={this.onPlayerStateChange}
           />
         );
@@ -49,14 +61,22 @@ class YouTubePlayer extends Component {
 
       onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PAUSED) {
-          this.check;
-          console.log("paused");
+          console.log('t')
         }
 
         if (event.data == YT.PlayerState.PLAYING) {
-          this.check;
-          console.log("playing");
+          console.log('play')
         }
+      }
+
+      pauseVideo() {
+        console.log('bros')
+        event.target.pauseVideo();
+      }
+
+      playVideo() {
+        console.log('brost')
+        event.target.playVideo();
       }
 }
 
